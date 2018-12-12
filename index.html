@@ -4,21 +4,47 @@
     <meta charset="UTF-8">
     <title>Hour of Code Voting!</title>
     <style>
-        img {
-            width: 200px;
+        * {
+        font-family: helvetica;
         }
-
+        body {
+          width: 70vw;
+          margin: 0 auto;
+            margin-top: 50px;
+        }
+        #container {
+          display:flex;
+          flex-direction:row;
+            flex-wrap: wrap;
+        }
+        #container > div {
+          background-color: #dddddd;
+          margin: 30px;
+            padding: 10px;
+          box-shadow: 5px 10px #888888;
+          border-radius: 0px;
+        }
+        img {
+            height: 150px;
+        }
+        p {
+          text-indent: 30px;
+        }
         a {
             margin: 20px;
         }
     </style>
 </head>
 <body>
-    <script>
+  <h1>Hour of Code Voting</h1>
+  <a href="http://bit.ly/northjamvoting">Vote Here! (as many times as you like)</a>
+  <div id="container"></div>
+  <script>
         const URL = 'https://api.myjson.com/bins/hnybw'
-        const TARGET = document.querySelector('body')
+        const TARGET = document.getElementById('container')
 
         fetch(URL).then(resp => resp.json()).then(result => {
+            result = shuffle(result)
             TARGET.innerHTML = result.map(([author, url, img]) =>
                 `<div>
                     <a href="${url}"><img src="${img}"></a>
@@ -26,6 +52,25 @@
                 </div>`
             ).join('')
         })
+
+        function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+        }
     </script>
 </body>
 </html>
