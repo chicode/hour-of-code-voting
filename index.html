@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hour of Code Voting!</title>
+    <style>
+        img {
+            width: 200px;
+        }
+
+        a {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const URL = 'https://api.myjson.com/bins/hnybw'
+        const TARGET = document.querySelector('body')
+
+        fetch(URL).then(resp => resp.json()).then(result => {
+            TARGET.innerHTML = result.map(([author, url, img]) =>
+                `<div>
+                    <a href="${url}"><img src="${img}"></a>
+                    <p>by ${author}</p>
+                </div>`
+            ).join('')
+        })
+    </script>
+</body>
+</html>
